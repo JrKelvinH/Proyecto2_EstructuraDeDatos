@@ -51,5 +51,9 @@ public class NodoAVL {
     public NodoAVL getRight() {
         return right;
     }
-
+    
+    public void setRight(NodoAVL right) {
+        this.right = this.right;
+    
+    }
 }

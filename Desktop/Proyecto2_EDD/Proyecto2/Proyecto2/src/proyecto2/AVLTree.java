@@ -13,10 +13,10 @@ import java.util.Locale;
  * Arbol AVL para los Autores y las Palabras Claves.
  * Uso de la libreria Collator para las comparaciones
  * @author KelvinH
- * @version corregido 20/11/25
+ * @version 20/11/25
  */
 public class AVLTree {
-    private  NodoAVL root;
+    private NodoAVL root;
     private Collator collator;
 
     public AVLTree() {
@@ -26,15 +26,15 @@ public class AVLTree {
     }
     
 // Insertar un nodo y balancea el arbol
-    public void Insertar(String clave, Object dato) {
-        setRoot(insertarRec(getRoot(), clave, dato));
+    public void insertar(String clave, Object dato) {
+        root = insertarRec(root, clave, dato);
     }
     
     private NodoAVL insertarRec(NodoAVL nodo, String clave, Object dato) {
         if (nodo == null) {
             return new NodoAVL(clave, dato);
         }
-        int cmp = getCollator().compare(clave, nodo.getClave());
+        int cmp = collator.compare(clave, nodo.getClave());
         if (cmp < 0) {
             nodo.setLeft(insertarRec(nodo.getLeft(), clave, dato));
         } else if (cmp > 0) {
@@ -49,18 +49,25 @@ public class AVLTree {
     
 // Busca un nodo por la clave.
     public Object buscar(String clave) {
-        NodoAVL nodo = buscarRec(getRoot(), clave);
+        NodoAVL nodo = buscarRec(root, clave);
         return nodo != null ? nodo.getDato() : null;
     }  
     
+    private NodoAVL buscarRec(NodoAVL nodo, String clave) {
+        if (nodo == null) return null;
+        int cmp = collator.compare(clave, nodo.getClave());
+        if (cmp == 0) return nodo;
+        return cmp < 0 ? buscarRec(nodo.getLeft(), clave) : buscarRec(nodo.getRight(), clave);
+    }
+    
 // Elimina un nodo.
     public void eliminar(String clave) {
-        setRoot(eliminarRec(getRoot(), clave));
+        root = eliminarRec(root, clave);
     }
     
     private NodoAVL eliminarRec(NodoAVL nodo, String clave) {
         if (nodo == null) return null;
-        int cmp = getCollator().compare(clave, nodo.getClave());
+        int cmp = collator.compare(clave, nodo.getClave());
         if (cmp < 0) {
             nodo.setLeft(eliminarRec(nodo.getLeft(), clave));
         } else if (cmp > 0) {
@@ -79,7 +86,7 @@ public class AVLTree {
 // Recorrido en Inorden para la lista ordenada
      public List<String> inorden() {
         List<String> lista = new ArrayList<>();
-        inordenRec(getRoot(), lista);
+        inordenRec(root, lista);
         return lista;
     }
     
@@ -160,35 +167,4 @@ public class AVLTree {
         }
         return current;
     } 
-
-    /**
-     * @return the root
-     */
-    public NodoAVL getRoot() {
-        return root;
-    }
-
-    /**
-     * @param root the root to set
-     */
-    public void setRoot(NodoAVL root) {
-        this.root = root;
-    }
-
-    /**
-     * @return the collator
-     */
-    public Collator getCollator() {
-        return collator;
-    }
-
-    /**
-     * @param collator the collator to set
-     */
-    public void setCollator(Collator collator) {
-        this.collator = collator;
-    }
-    
-    
-    
 }

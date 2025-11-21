@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Tabla de dispersión para almacenar resúmenes con clave basada en el título.
  * @author KelvinH
- * @version corregido 20/11/25
+ * @version 20/11/25
  */
 public class HashTable {
     private List<List<NodoHash>> tabla;

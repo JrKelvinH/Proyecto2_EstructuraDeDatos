@@ -21,7 +21,7 @@ public class Resumen {
     private List<String> autores;
     private String cuerpo;
     private List<String> palabrasClave;
-    private Map<String, Integer> frecuenciaPalabras;
+    Map<String, Integer> frecuenciaPalabras;
     public Resumen(String titulo, List<String> autores, String cuerpo, List<String> palabrasClave) {
         this.titulo = titulo;
         this.autores = autores;
@@ -29,18 +29,23 @@ public class Resumen {
         this.palabrasClave = palabrasClave;
         this.frecuenciaPalabras = new HashMap<>();
     }
+    
     public String getTitulo() {
         return titulo;
     }
+    
     public List<String> getAutores() {
         return autores;
     }
+    
     public String getCuerpo() {
         return cuerpo;
     }
+    
     public List<String> getPalabrasClave() {
         return palabrasClave;
     }
+    
     /**
      * Analiza frecuencias de palabras clave en el cuerpo.
      */
